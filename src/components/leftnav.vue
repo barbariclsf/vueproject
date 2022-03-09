@@ -29,7 +29,7 @@ export default {
       collapsed: false,
       allmenu: []
     }
-  },
+  }, 
   // 创建完毕状态(里面是操作)
   created() {
     // 获取图形验证码
@@ -39,154 +39,76 @@ export default {
         {
           menuid: 1,
           icon: 'li-icon-xiangmuguanli',
-          menuname: '基础管理',
+          menuname: '用户管理',
           hasThird: null,
           url: null,
           menus: [
             {
-              menuid: 2,
-              icon: 'icon-cat-skuQuery',
-              menuname: '商品管理',
+              menuid: 22,
+              icon: 'icon-cus-manage',
+              menuname: '用户管理',
               hasThird: 'N',
-              url: 'goods/Goods',
+              url: 'user/user',
               menus: null
-            }
+            },
           ]
         },
         {
           menuid: 33,
           icon: 'li-icon-dingdanguanli',
-          menuname: '订单管理',
+          menuname: '职位管理',
           hasThird: null,
           url: null,
           menus: [
             {
               menuid: 34,
               icon: 'icon-order-manage',
-              menuname: '交易订单',
+              menuname: '职位管理',
               hasThird: 'N',
-              url: 'pay/Order',
+              url: 'postion/Postion',
               menus: null
             }
           ]
         },
-        {
-          menuid: 71,
-          icon: 'li-icon-xitongguanli',
-          menuname: '系统管理',
+         {
+          menuid: 35,
+          icon: 'icon-cs-manage',
+          menuname: '公司管理',
           hasThird: null,
           url: null,
           menus: [
             {
-              menuid: 72,
-              icon: 'icon-cus-manage',
-              menuname: '用户管理',
-              hasThird: 'N',
-              url: 'system/user',
-              menus: null
-            },
-            {
-              menuid: 174,
-              icon: 'icon-cms-manage',
-              menuname: '菜单管理',
-              hasThird: 'N',
-              url: 'system/Module',
-              menus: null
-            },
-            {
-              menuid: 73,
-              icon: 'icon-news-manage',
-              menuname: '角色管理',
-              hasThird: 'N',
-              url: 'system/Role',
-              menus: null
-            },
-            {
-              menuid: 74,
+              menuid: 36,
               icon: 'icon-cs-manage',
               menuname: '公司管理',
               hasThird: 'N',
-              url: 'system/Dept',
+              url: 'company/Company',
               menus: null
-            },
+            }
+          ]
+        },
+         {
+          menuid: 37,
+          icon: 'icon-promotion-manage',
+          menuname: '认证管理',
+          hasThird: null,
+          url: null,
+          menus: [
             {
-              menuid: 75,
+              menuid: 38,
               icon: 'icon-promotion-manage',
-              menuname: '系统环境变量',
+              menuname: '认证管理',
               hasThird: 'N',
-              url: 'system/Variable',
-              menus: null
-            },
-            {
-              menuid: 76,
-              icon: 'icon-cms-manage',
-              menuname: '权限管理',
-              hasThird: 'N',
-              url: 'system/Permission',
+              url: 'verify/Verify',
               menus: null
             }
           ]
         },
-        {
-          menuid: 128,
-          icon: 'li-icon-shangchengxitongtubiaozitihuayuanwenjian91',
-          menuname: '支付管理',
-          hasThird: null,
-          url: null,
-          menus: [
-            {
-              menuid: 129,
-              icon: 'icon-provider-manage',
-              menuname: '支付配置信息',
-              hasThird: 'N',
-              url: 'machine/MachineConfig',
-              menus: null
-            },
-            {
-              menuid: 175,
-              icon: 'icon-provider-manage',
-              menuname: '支付配置',
-              hasThird: 'N',
-              url: 'pay/Config',
-              menus: null
-            }
-          ]
-        },
-        {
-          menuid: 150,
-          icon: 'li-icon-shangchengxitongtubiaozitihuayuanwenjian91',
-          menuname: '图表',
-          hasThird: null,
-          url: null,
-          menus: [
-            {
-              menuid: 159,
-              icon: 'icon-provider-manage',
-              menuname: '数据可视化',
-              hasThird: 'N',
-              url: 'charts/statistics',
-              menus: null
-            }
-          ]
-        }
+        
       ],
       msg: 'success'
     }
           this.allmenu = res.data
-    
-    // menu(localStorage.getItem('logintoken'))
-    //   .then(res => {
-    //     console.log(JSON.stringify(res))
-    //     if (res.success) {
-    //       this.allmenu = res.data
-    //     } else {
-    //       this.$message.error(res.msg)
-    //       return false
-    //     }
-    //   })
-    //   .catch(err => {
-    //     this.$message.error('菜单加载失败，请稍后再试！')
-    //   })
     // 监听
     this.$root.Bus.$on('toggle', value => {
       this.collapsed = !value

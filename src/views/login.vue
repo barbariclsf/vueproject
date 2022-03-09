@@ -8,7 +8,7 @@
       <el-form-item prop="password">
         <el-input type="password" v-model="ruleForm.password" auto-complete="off" placeholder="密码"></el-input>
       </el-form-item>
-      <el-row>
+      <!-- <el-row>
         <el-col :span="12">
           <el-form-item prop="code">
             <el-input type="text" v-model="ruleForm.code" auto-complete="off" placeholder="图形验证码" @keyup.enter.native="submitForm('ruleForm')"></el-input>
@@ -17,7 +17,7 @@
         <el-col :span="12" class="code-box">
           <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()">
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-checkbox class="remember" v-model="rememberpwd">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button type="primary" style="width:100%;" @click="submitForm('ruleForm')" :loading="logining">登录</el-button>
@@ -60,7 +60,7 @@ export default {
       type: 'success'
     })
     // 获取图形验证码
-    this.getcode()
+    // this.getcode()
     // 获取存在本地的用户名密码
     this.getuserpwd()
     
@@ -78,45 +78,43 @@ export default {
     //获取info列表
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
+      
         if (valid) {
           this.logining = true
-          // 测试通道，不为空直接登录
-          setTimeout(() => {
-            this.logining = false
-            this.$store.commit('login', 'true')
-            this.$router.push({ path: '/goods/Goods' })
-          }, 1000)
           // 注释
-          // login(this.ruleForm).then(res => {
-          //   if (res.success) {
-          //     if (this.rememberpwd) {
-          //       //保存帐号到cookie，有效期7天
-          //       setCookie('user', this.ruleForm.username, 7)
-          //       //保存密码到cookie，有效期7天
-          //       setCookie('pwd', this.ruleForm.password, 7)
-          //     } else {
-          //       delCookie('user')
-          //       delCookie('pwd')
-          //     }
-          //     //如果请求成功就让他2秒跳转路由
-          //     setTimeout(() => {
-          //       this.logining = false
-          //       // 缓存token
-          //       localStorage.setItem('logintoken', res.data.token)
-          //       // 缓存用户个人信息
-          //       localStorage.setItem('userdata', JSON.stringify(res.data))
-          //       this.$store.commit('login', 'true')
-          //       this.$router.push({ path: '/goods/Goods' })
-          //     }, 1000)
-          //   } else {
-          //     this.$message.error(res.msg)
-          //     this.logining = false
-          //     return false
-          //   }
-          // })
+          login({manager_id : this.ruleForm.username,password : this.ruleForm.password}).then(res => {
+            
+            if (res.result == "success" && res.code == 200) {
+              console.log(res);
+              if (this.rememberpwd) {
+                //保存帐号到cookie，有效期7天
+                setCookie('user', this.ruleForm.username, 7)
+                //保存密码到cookie，有效期7天
+                setCookie('pwd', this.ruleForm.password, 7)
+              } else {
+                delCookie('user')
+                delCookie('pwd')
+              }
+              //如果请求成功就让他2秒跳转路由
+              setTimeout(() => {
+                this.logining = false
+                // 缓存token
+                // localStorage.setItem('logintoken', res.data.token)
+                // 缓存用户个人信息
+                localStorage.setItem('userdata', JSON.stringify(res.data))
+                this.$store.commit('login', 'true')
+                this.$router.push({ path: '/user/user' })
+              }, 1000)
+            } else {
+              console.log(res)
+              this.$message.error(res.message)
+              this.logining = false
+              return false
+            }
+          })
         } else {
           // 获取图形验证码
-          this.getcode()
+          // this.getcode()
           this.$message.error('请输入用户名密码！')
           this.logining = false
           return false
